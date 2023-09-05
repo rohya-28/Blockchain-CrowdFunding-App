@@ -1,6 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { BrowserRouter } from 'react-router-dom';
 
 import App from "./App";
 import './index.css';
@@ -18,7 +19,9 @@ root.render(
       clientId={import.meta.env.VITE_TEMPLATE_CLIENT_ID}
       activeChain={activeChain}
     >
-      <App />
+      <BrowserRouter>
+          <App />
+      </BrowserRouter>
     </ThirdwebProvider>
   </React.StrictMode>
 );
