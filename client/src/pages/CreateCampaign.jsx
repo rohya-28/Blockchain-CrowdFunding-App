@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ethers } from 'ethers';
 
 import { money } from '../assets';
-import { CustomButton, FromField } from '../components';
+import { CustomButton, FormField } from '../components';
 import { checkIfImage } from '../utils';
 
 
@@ -11,7 +11,7 @@ const CreateCampaign = () => {
 
   const navigate = useNavigate();
   const [isLoading, setIsLoading ] = useState(false);
-  const [ form, setFrom ] = useState({
+  const [ form, setForm ] = useState({
    name: '',
    title: '',
    description:'',
@@ -20,12 +20,14 @@ const CreateCampaign = () => {
    image: ''
   });
 
-  const handleFormFieldChange = (e, fieldName) => {
-   setFrom({...form, [fieldName]: e.target.value })
+  const handleFormFieldChange = (fieldName, e) => {
+    setForm({ ...form, [fieldName]: e.target.value })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+  e.preventDefault()
 
+  console.log(form)
   }
 
   return (
@@ -37,7 +39,7 @@ const CreateCampaign = () => {
  
       <form onSubmit={handleSubmit} className='w-full mt-[65px] flex flex-col gap-[30px]'>
         <div className='flex flex-wrap gap-[40px]'>
-          <FromField 
+          <FormField 
             LabelName="Your Name *"
             PlaceHolder="John Doe"
             inputType="Text"
@@ -47,7 +49,7 @@ const CreateCampaign = () => {
 
             />
             
-            <FromField 
+            <FormField 
             LabelName="Campaign Title *"
             PlaceHolder="Write an Title"
             inputType="Text"
@@ -59,7 +61,7 @@ const CreateCampaign = () => {
 
         </div>
 
-        <FromField 
+        <FormField 
             LabelName="Story  *"
             PlaceHolder="Write Your Story"
             isTextArea
@@ -74,7 +76,7 @@ const CreateCampaign = () => {
         </div> 
 
         <div className='flex flex-wrap gap-[40px]'>
-          <FromField 
+          <FormField 
             LabelName="Goal *"
             PlaceHolder="ETH 0.50"
             inputType="Text"
@@ -83,7 +85,7 @@ const CreateCampaign = () => {
             }}
             />
             
-            <FromField 
+            <FormField 
             LabelName="End Date *"
             PlaceHolder="Date"
             inputType="date"
@@ -93,7 +95,7 @@ const CreateCampaign = () => {
             />
           </div>
 
-            <FromField 
+            <FormField 
             LabelName="Campaign Image *"
             PlaceHolder="Place Image Url of your campaign"
             inputType="url"

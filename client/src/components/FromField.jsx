@@ -1,6 +1,6 @@
 import React from 'react'
 
-const FromField = ({ LabelName, PlaceHolder, inputType, isTextArea, Value, handleChange }) => {
+const FormField = ({ LabelName, PlaceHolder, inputType, isTextArea, value, handleChange }) => {
   return (
     <label className='flex-1 w-full flex flex-col'>
         {LabelName && (
@@ -11,7 +11,7 @@ const FromField = ({ LabelName, PlaceHolder, inputType, isTextArea, Value, handl
         {isTextArea ? (
             <textarea 
             required 
-            value={Value}
+            value={value}
             onChange={handleChange}
             rows={10}
             placeholder={PlaceHolder}
@@ -22,7 +22,7 @@ const FromField = ({ LabelName, PlaceHolder, inputType, isTextArea, Value, handl
         (
          <input 
          required 
-         value={Value}
+         value={value}
          onChange={handleChange}
          type={inputType}
          step='0.1'
@@ -36,4 +36,4 @@ const FromField = ({ LabelName, PlaceHolder, inputType, isTextArea, Value, handl
   )
 }
 
-export default FromField
+export default FormField
