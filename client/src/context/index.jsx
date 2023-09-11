@@ -13,21 +13,22 @@ export const StateContextProvider = ({ children }) => {
   const connect = useMetamask();
 
   const publishCampaign = async (form) => {
-   try {
-    const data = await createCampaign({
-      args: [
-        address, // owner
-        form.title, // title
-        form.description, // description
-        form.target,
-        new Date(form.deadline).getTime(), // deadline,
-        form.image,
-      ],
-    })
-      console.log('contract call success', data)    
+    try {
+      const data = await createCampaign({
+				args: [
+					address, // owner
+					form.title, // title
+					form.description, // description
+					form.target,
+					new Date(form.deadline).getTime(), // deadline,
+					form.image,
+				],
+			});
+
+      console.log("contract call success", data)
     } catch (error) {
-      console.log('contract call failed', error)
-   }
+      console.log("contract call failure", error)
+    }
   }
 
   const getCampaign = async () => {
@@ -44,8 +45,19 @@ export const StateContextProvider = ({ children }) => {
       pId: i
     }))
 
+    console.log(parsedCampaign);
     return parsedCampaign;
   } 
+
+  const getUserCampaigns = async () => {
+    const allCampaign = await getCampaign();
+
+    const filteredCampaigns = allCampaign.filter((campaign) => 
+    campaign.owner === address
+    )
+    return filteredCampaigns;
+
+  }
 
   return(
     <StateContext.Provider 
@@ -54,7 +66,8 @@ export const StateContextProvider = ({ children }) => {
           contract, 
           connect,
           createCampaign:publishCampaign,
-          getCampaign
+          getCampaign,
+          getUserCampaigns
         }}>
         { children }
     </StateContext.Provider>

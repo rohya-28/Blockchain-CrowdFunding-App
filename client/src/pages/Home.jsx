@@ -14,15 +14,14 @@ const Home = () => {
   const fetchCampaigns = async () => {
     setIsLoading(true)
     const data = await getCampaign()
+    console.log(data)
     setCampaign(data)
     setIsLoading(false)
   }
 
-
-
-  useState(() => {
+  useEffect(() => {
     if(contract) fetchCampaigns();
-  },[address,contract])
+  }, [address, contract]);
  
 
   return (
