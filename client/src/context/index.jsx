@@ -34,16 +34,16 @@ export const StateContextProvider = ({ children }) => {
   const getCampaign = async () => {
     const campaign = await contract.call('getCampaign');
 
-    const parsedCampaign = campaign.map((campaign, i ) => ({
+    const parsedCampaign = campaign.map((campaign, i) => ({
       owner: campaign.owner,
       title: campaign.title,
       description: campaign.description,
       target: ethers.utils.formatEther(campaign.target.toString()),
       deadline: campaign.deadline.toNumber(),
-      amountCollected:ethers.utils.formatEther(campaign.amountCollected.toString()),
+      amountCollected: ethers.utils.formatEther(campaign.amountCollected.toString()),
       image: campaign.image,
-      pId: i
-    }))
+      pId: i,
+    }));
 
     console.log(parsedCampaign);
     return parsedCampaign;
@@ -59,6 +59,28 @@ export const StateContextProvider = ({ children }) => {
 
   }
 
+  const donate = async (pId, amount) => {
+   const data = await contract.call('donateCampaign', [pId], { value: ethers.utils.parseEther(amount)})
+
+   return data;
+  }
+
+  const getDonations = async (pId, amount) => {
+   const donations = await contract.call('getDonaters', [pId]);
+   const numberOfDonations = donations[0].length; 
+
+    const parsedDonations = [];
+
+    for (let i = 0; i < numberOfDonations; i++) {
+      parsedDonations.push({
+        donator:donations[0][i],
+        donations:ethers.utils.formatEther(donations[1][i].toString())
+      })
+    }
+
+    return parsedDonations;
+  }
+
   return(
     <StateContext.Provider 
          value={{ 
@@ -67,7 +89,9 @@ export const StateContextProvider = ({ children }) => {
           connect,
           createCampaign:publishCampaign,
           getCampaign,
-          getUserCampaigns
+          getUserCampaigns,
+          donate,
+          getDonations
         }}>
         { children }
     </StateContext.Provider>

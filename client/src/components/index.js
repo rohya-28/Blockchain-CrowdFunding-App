@@ -5,5 +5,6 @@ export { default as  FormField } from './FromField';
 export { default as  DisplayCampaign } from './DisplayCampaign';
 export { default as FundCard } from './FundCard';
 export { default as CountBox } from './CountBox';
+export { default as Loader } from './Loader';
 
 

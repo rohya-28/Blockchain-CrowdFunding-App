@@ -30,6 +30,7 @@ contract CrowdFunding {
         campaign.description = _description;
         campaign.target = _target;
         campaign.amountCollected = 0;
+        campaign.deadline = _deadline;
         campaign.image = _image;
 
         numberOfCampaigns++;

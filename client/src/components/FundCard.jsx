@@ -4,8 +4,14 @@ import { tagType, thirdweb } from '../assets'
 import { daysLeft } from '../utils'
 
 const FundCard = ({ owner, title, description, target, deadline, amountCollected, image, handleClick  }) => {
-  const remainingDays = daysLeft(deadline);
-
+  
+  // const remainingDays = daysLeft(deadline);
+  function getRandomNumberFrom1To10() {
+    return Math.floor(Math.random() * 10) + 1;
+  }
+  
+  const remainingDays = getRandomNumberFrom1To10();
+  
   return (
     <div className='sm:w-[288px] w-full rounded-[15px] bg-[#1c1c1c] cursor-pointer' onClick={handleClick}>
       <img src={image} alt='fund' className='w-full h-[158px] object-cover rounded-[15px]' />
